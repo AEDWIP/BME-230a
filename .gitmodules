@@ -1,0 +1,3 @@
+[submodule "tensorFlowForDeepLearning"]
+	path = tensorFlowForDeepLearning
+	url = https://github.com/matroid/dlwithtf.git

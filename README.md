@@ -1,4 +1,6 @@
 # READ ME
+Author: Andrew E. Davidson
+aedavids@ucsc.edu
 
 ## virtual env 
 - tensorflow requires python 3.6
@@ -12,4 +14,8 @@ $ source ~/workSpace/pythonEnv/BME_230a_py3.6/bin/activate
 - set up:
   * after git init
 ```
+(BME_230a_py3.6) $ pwd
+/Users/andrewdavidson/workSpace/UCSC/BME-230a/project
+(BME_230a_py3.6) $ git submodule add https://github.com/matroid/dlwithtf.git tensorFlowForDeepLearning
+Cloning into '/Users/andrewdavidson/workSpace/UCSC/BME-230a/project/tensorFlowForDeepLearning'...
 ```
