@@ -1,0 +1,10 @@
+# data is a symbolic link to project/rcurrie-tumornormal/data
+# data director is created automatically by ingest.ipynb is data files are missing
+data
+
+# rcurrie-tumornormal is cloned from https://github.com/rcurrie/tumornormal.git
+rcurrie-tumornormal
+
+# aedwip-old-tumornormal is symbolic link to ~/workSpace/UCSC/mlCoop/tumornormal
+# this is the code base we worked on last spring
+aedwip-old-tumornormal
