@@ -257,8 +257,9 @@ def loadCancerDiseaseTypeTidyDataSet(projectDir):
     
         https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html
     
-    return (diseaseLabelEncoder, XTrainNumpy, yTrainNumpy, XTestNumpy, yTestNumpy)
-    
+    return (hugoIds, diseaseLabelEncoder, XTrainNumpy, yTrainNumpy, XTestNumpy, yTestNumpy)
+        hugoIds, a numpy array of strings. These are hugo column labels for the feature columns
+        
         diseaseLabelEncoder:
             an instance of sklearn.preprocessing.LabelEncoder. use 
             inverse_transform(disease_value) to recover original string label
@@ -279,6 +280,9 @@ def loadCancerDiseaseTypeTidyDataSet(projectDir):
     # Load training set
     XDF = pd.read_hdf(sourceDataFilePath, "expression")
     yDF = pd.read_hdf(sourceDataFilePath, "labels")
+    
+    # fetch the column names
+    hugoIds = XDF.columns.values
     
     # remove normal cases
     yTumorRows = yDF['tumor_normal'] != 'Normal'        
@@ -328,7 +332,7 @@ def loadCancerDiseaseTypeTidyDataSet(projectDir):
     yTrainNumpy = np.reshape(yTrainNumpy,(yTrainNumpy.shape[0], -1))
     yTestNumpy  = np.reshape( yTestNumpy, (yTestNumpy.shape[0], -1))   
     
-    return (diseaseLabelEncoder, XTrainNumpy, yTrainNumpy, XTestNumpy, yTestNumpy)
+    return (hugoIds, diseaseLabelEncoder, XTrainNumpy, yTrainNumpy, XTestNumpy, yTestNumpy)
     
 ################################################################################        
 def loadKerasModel(modelName):
