@@ -243,13 +243,32 @@ def loadTumorNormalData(projectDir):
     return (XTrainDF, y_train, XTestDF, y_test)
 
 ################################################################################        
-def loadDiseaseTypeData(projectDir):
+def loadCancerDiseaseTypeTidyDataSet(projectDir):
     '''
-    ref: diseaseTypeClassifier.ipynb
+    preformes the following steps
+    * load projectDir/data/tcga_target_gtex.h5
+    * remove all 'Normal' cases
+    * encodes 'disease' string labels 
+    * creates one-hot reprsentation of disease values
+    * calls StratifiedShuffleSplit to split into  80/20 train/test set
     
-    return (XTrainNumpy, yTrainNumpy, XTestNumpy, yTestNumpy)
-        note the shape of y will be (m, 1 + k). The first col is the disease category value, 
-        the remaining columns are the equavalent one hot encoding
+    ref: 
+        diseaseTypeClassifier.ipynb
+    
+        https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html
+    
+    return (diseaseLabelEncoder, XTrainNumpy, yTrainNumpy, XTestNumpy, yTestNumpy)
+    
+        diseaseLabelEncoder:
+            an instance of sklearn.preprocessing.LabelEncoder. use 
+            inverse_transform(disease_value) to recover original string label
+            
+        XTrainNumpy.shape: (8424, 58581) XTestNumpy.shape: (2106, 58581)
+        yTrainNumpy.shape: (8424, 39)    yTestNumpy.shape: (2106, 39)
+        
+        y shapes explained
+            the first column is the encode disease type of type int
+            the remain columns are the one-hot encoding
     '''
     sourceDataFilePath = "{}/{}".format(projectDir, _sourceDataFile)
     print("sourceDataFilePath:{}".format(sourceDataFilePath))
@@ -260,13 +279,26 @@ def loadDiseaseTypeData(projectDir):
     # Load training set
     XDF = pd.read_hdf(sourceDataFilePath, "expression")
     yDF = pd.read_hdf(sourceDataFilePath, "labels")
- 
+    
+    # remove normal cases
+    yTumorRows = yDF['tumor_normal'] != 'Normal'        
+    yTumorDF = yDF.loc[yTumorRows, ['disease', 'tumor_normal']]
+
+    yTumorDF = yDF[yTumorRows]
+    yDF = yTumorDF
+    yTumorDF = None # free memory
+
+    XTumorDF = XDF[yTumorRows]
+    XDF = XTumorDF
+    XTumorDF = None # free memory
+
     # Convert tumor_normal  into numerical values 
     from sklearn.preprocessing import LabelEncoder
     
     # Convert disease  into numerical values 
-    encoder = LabelEncoder()
-    yDF["disease_value"] = pd.Series(encoder.fit_transform(yDF["disease"]), index=yDF.index)
+    # https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html
+    diseaseLabelEncoder = LabelEncoder()
+    yDF["disease_value"] = pd.Series(diseaseLabelEncoder.fit_transform(yDF["disease"]), index=yDF.index)
     
     # create one hot encodings
     oneHots = np_utils.to_categorical(yDF["disease_value"])
@@ -296,7 +328,7 @@ def loadDiseaseTypeData(projectDir):
     yTrainNumpy = np.reshape(yTrainNumpy,(yTrainNumpy.shape[0], -1))
     yTestNumpy  = np.reshape( yTestNumpy, (yTestNumpy.shape[0], -1))   
     
-    return (XTrainNumpy, yTrainNumpy, XTestNumpy, yTestNumpy)
+    return (diseaseLabelEncoder, XTrainNumpy, yTrainNumpy, XTestNumpy, yTestNumpy)
     
 ################################################################################        
 def loadKerasModel(modelName):
