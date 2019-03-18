@@ -6,6 +6,12 @@
 
 Note for best viewing experience open links on github. GitHub will automatically render the jupyter notebook files into html. If you experience a rendering problem click on the git hub reload button
 
+## Installation notes
+- clone this repo
+- download the required data set
+  * you can find a copy at s3://bme-230a.santacruzintegration.com/tcga_target_gtex.h5
+  * or run [Rob Curries' ingest notebook](https://github.com/rcurrie/tumornormal/blob/master/ingest.ipynb)
+
 ## Table of Contents:
 * [BME-230a-2019-paper-aedavids@ucsc.edu.ipynb  notebook](./BME-230a-2019-paper-aedavids@ucsc.edu.ipynb)
   + final class report. 
