@@ -133,9 +133,9 @@ b. on ec2 move to s3
 
 
     * https://support.infinitewp.com/support/solutions/articles/212258-where-are-my-amazon-s3-credentials-
-    * create a user "aed"
-    * see onepassword aws SCI userId:aed
-    * figure out how to use aws.aed.credentials.csv 
+    * create a user "andy"
+    * see onepassword aws SCI userId:andy
+    * figure out how to use aws.andy.credentials.csv 
     * export AWS_ACCESS_KEY_ID=AEDWIP
     * ubuntu@ip-172-31-15-92:~$ export AWS_SECRET_ACCESS_KEY=AEDWIP
 

@@ -1,6 +1,7 @@
-# READ ME
+# Work in progress
 Author: Andrew E. Davidson
 aedavids@ucsc.edu
+
 
 ## virtual env 
 - tensorflow requires python 3.6
