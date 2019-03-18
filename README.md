@@ -4,7 +4,7 @@
 - Andrew E. Davidson
 - [aedavids@ucsc.edu](mailto:aedavids@edu?subject=SimpleModel.ipynb)
 
-Note for best viewing experience open links on github. GitHub will automatically render the jupyter notebook files into html. If you experience a rendering problem click on the git hub reload button
+Note for best viewing experience open links on github. [https://github.com/AEDWIP/BME-230a](https://github.com/AEDWIP/BME-230a)  GitHub will automatically render the jupyter notebook files into html. If you experience a rendering problem click on the git hub reload button. Save as PDF sometimes clips plots and puts page breaks in strange places
 
 ## Installation notes
 - clone this repo
